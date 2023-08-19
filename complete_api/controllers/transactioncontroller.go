@@ -38,8 +38,5 @@ func  (pc *TransactionController) CreateTransaction(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, gin.H{"status": "success", "data": newProfile})
 }
 
-func (pc *ProfileController)  GetTransactionById(ctx *gin.Context)     {
-            	         id:=ctx.Param("id")
-						 newProfile, err := pc.TransactionService.GetTransaction(id) 
-}
+
 

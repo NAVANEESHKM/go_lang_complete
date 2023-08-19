@@ -33,20 +33,7 @@ func (p *TransactionService) CreateTransaction(user *models.Transaction) (*model
 	return nil, err
 }
 
-func (p *TransactionService) GetTransaction(user *models.Transaction) (*models.DBResponse, error) {
-	
-	
-	filter:=bson.D{}
-	_, err := p.TransactionCollection.FindOne(p.ctx,filter)
 
-	if err != nil {
-		if er, ok := err.(mongo.WriteException); ok && er.WriteErrors[0].Code == 11000 {
-			return nil, errors.New("user with that email already exist")
-		}
-		return nil, err
-	}
-	return nil, err
-}
 
 
 

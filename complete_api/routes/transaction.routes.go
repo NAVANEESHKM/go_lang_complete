@@ -9,7 +9,7 @@ import (
 
 func TransactionRoute(router *gin.Engine, controller controllers.TransactionController) {
 	router.POST("/api/profile/create", controller.CreateTransaction)
-	router.GET("/api/profile/create:id",controller.GetProfileById)
+	
 	
 	
 }
