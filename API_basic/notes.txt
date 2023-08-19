@@ -1,0 +1,74 @@
+filter:=bson.D{}
+limit:=options.Find().SetLimit(10)
+
+//grpc
+filter:=bson.D{}
+limit:=options.Find().SetSort(bson.D{{"transcation_count",-1}}).SetLimit(10)
+
+
+filter:=bson.D{}
+limit:=options.Find().SetSort(bson.D{{"transcation_count",1}}).SetSkip(30).SetLimit(10)
+
+
+filter:=bson.M{"transaction_count":bson.D{{"$gt",85}}}
+limit:=options.Find().SetSort(bson.D{{"transaction_count",1}}).SetSkip(30).SetLimit(10)
+
+
+
+filter:=bson.M{"transaction_count":bson.D{{"$gt",85},{"$lt",90}}}
+limit:=options.Find().SetSort(bson.D{{"transaction_count",1}}).SetSkip(30).SetLimit(10)
+
+
+bson.D
+bson.M
+
+matchStage:=bson.D{{"$match",bson.D{{"transaction_count",100}}}}//talks about searching data
+groupStage:=bson.D{
+{"$group",bson.D{
+{"_id","$account_id"},
+{"total_count",bson.D{{"$sum","$transactions.amount"}}},
+}}}
+
+
+$unwind-used to split the array documents into separate documents for each element in the array
+
+db.students.aggregate([{$unwind:"$course"}])
+
+
+$pipeline-when we are performing aggregatiin pipline will give you the different stages to perform the aggregation
+
+$match-will be acting as the search query that can be integrated with aggreagation pipeline
+
+project,match,group,setlimit,setsort
+
+$loopup-will be used to perform the join between two tables 
+
+INNER JOINS
+db.Books.aggregate([
+   {
+       $lookup:
+       {
+           from:"Authors",
+           localField:"author_id",
+           foreignField:"_id",
+           as:"AuthorDetails"
+       }
+   }
+])
+
+Update
+db.Books.update({_id:4.0},{$set:{
+    price:11000
+}})
+
+
+
+
+
+ matchStage:=bson.D{{"$match",bson.D{{"transaction_count",100}}}}//talks about searching data
+	   groupStage:=bson.D{
+		{"$group",bson.D{
+			{"_id","$account_id"},
+			{"total_count",bson.D{{"$sum","$transactions.amount"}}},
+		}}}  
+		result,err:=help().Aggregate(ctx,mongo.Pipeline{matchStage,groupStage})
